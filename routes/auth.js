@@ -28,7 +28,7 @@ const {isLoggedIn,isNotLoggedIn} = require('./middlewares')
 
  // 로그인 라우터
 
- router.post('/login',isLoggedIn,(req,res,next)=>{
+ router.post('/login',isNotLoggedIn,(req,res,next)=>{
         //미들웨어 
     passport.authenticate('local',(authError,user,info)=>{
          if(authError){ //서버 에러
@@ -47,7 +47,7 @@ const {isLoggedIn,isNotLoggedIn} = require('./middlewares')
              return res.redirect('/');
          });
          //미들웨어 확장
-     })(req,res,netx); // 미들웨어 내의 미들에어에는 (req,res,next를 붙인다)
+     })(req,res,next); // 미들웨어 내의 미들에어에는 (req,res,next를 붙인다)
  });
   //localStoragy 를 찾는다 
 
@@ -57,4 +57,11 @@ const {isLoggedIn,isNotLoggedIn} = require('./middlewares')
       res.redirect('/');
   });
 
+  router.get('/kakao', passport.authenticate('kakao'));
+
+  router.get('/kakao/callback', passport.authenticate('kakao', {
+    failureRedirect: '/',
+  }), (req, res) => {
+    res.redirect('/');
+  });
   module.exports = router;
