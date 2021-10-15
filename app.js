@@ -9,6 +9,7 @@ const dotenv=require('dotenv');
 //거의 항상 최상단 프로세스 파일 설정파일 이 줄 이후
 dotenv.config();
 const pageRouter=require('./routes/page');
+const authRouter =require('./routes/auth');
 const {sequelize}=require('./models');
 
 const app = express();
@@ -46,6 +47,7 @@ app.use(session({
 }));
 
 app.use('/',pageRouter); //pageRouter 연결
+app.use('/auth',authRouter) //authRouter
 
 //모든 라우터 뒤에 나오는 404 미들웨어
 app.use((req,res,next)=>{
