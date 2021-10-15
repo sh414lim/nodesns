@@ -5,12 +5,14 @@ const path=require('path');
 const session=require('express-session');
 const nunjucks = require('nunjucks');
 const dotenv=require('dotenv');
+const passport =require('passport')
 
 //거의 항상 최상단 프로세스 파일 설정파일 이 줄 이후
 dotenv.config();
 const pageRouter=require('./routes/page');
 const authRouter =require('./routes/auth');
 const {sequelize}=require('./models');
+const { initialize } = require('passport');
 
 const app = express();
 app.set('port',process.env.PORT || 8001);
@@ -36,6 +38,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 
+//express 세션
 app.use(session({
     resave:false,
     saveUninitialized:false,
@@ -45,6 +48,9 @@ app.use(session({
          secure:false,
     },
 }));
+
+app.use (passport,initialize());
+app.use(passport.session());
 
 app.use('/',pageRouter); //pageRouter 연결
 app.use('/auth',authRouter) //authRouter

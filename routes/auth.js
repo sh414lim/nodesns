@@ -2,7 +2,7 @@
  const bcrypt=require('bcrypt');
  const User=require('../models/user');
 const passport = require('passport');
-
+const {isLoggedIn,isNotLoggedIn} = require('./middlewares')
  const router= express.Router();
 
  //회원가입 라우터
@@ -28,7 +28,7 @@ const passport = require('passport');
 
  // 로그인 라우터
 
- router.post('/login',(req,res,next)=>{
+ router.post('/login',isLoggedIn,(req,res,next)=>{
         //미들웨어 
     passport.authenticate('local',(authError,user,info)=>{
          if(authError){ //서버 에러
