@@ -1,6 +1,5 @@
 const express = require('express');
 const { Post, User } = require('../models');
-
 const router = express.Router();
 
 router.use((req,res,next)=>{
@@ -29,7 +28,7 @@ router.get('/',async(req,res,next)=>{
         title:'NodeBird',
         twits:posts,
     });
-
+ 
 }catch(err){
 console.error(err);
 next(err);
