@@ -4,9 +4,10 @@
     "password": "sh6130lim",
     "database": "database_development",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "operatorAliases": false
   },
-  "test": { 
+  "test": {
     "username": "root",
     "password": null,
     "database": "database_test",
@@ -21,3 +22,4 @@
     "dialect": "mysql"
   }
 }
+
